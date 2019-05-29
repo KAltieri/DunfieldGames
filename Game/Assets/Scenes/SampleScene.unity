@@ -889,8 +889,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1018238685}
   - component: {fileID: 1018238684}
-  - component: {fileID: 1018238686}
   - component: {fileID: 1018238687}
+  - component: {fileID: 1018238686}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -955,31 +955,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018238683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.0868473, y: -0.7837093, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: -4.983, y: -0.993, z: -1}
+  m_LocalScale: {x: 1.9978285, y: 1.983133, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &1018238686
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1018238683}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1018238687
+--- !u!114 &1018238686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -988,10 +970,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1018238683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dca7d8f44a95e34abf6d27035330feb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e067998e606aca4c9eacc6e60ebab77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  dashSpeedX: 20
+  dashCoolDown: 1
+--- !u!50 &1018238687
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018238683}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &1312279087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,7 +1008,7 @@ GameObject:
   - component: {fileID: 1312279088}
   - component: {fileID: 1312279090}
   - component: {fileID: 1312279089}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

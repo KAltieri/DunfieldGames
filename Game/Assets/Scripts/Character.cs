@@ -5,6 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public float speed;
+
     private CharacterController controller;
     float horizontalMovement = 0.0f;
     float verticalMovement = 0.0f;
@@ -27,7 +28,15 @@ public class Character : MonoBehaviour
         Vector3 move = new Vector3(horizontalMovement, verticalMovement, 0.0f);
         Debug.Log(move);
         move = transform.TransformDirection(move);
-        move *= speed;
+
+        if (horizontalMovement != 0 && verticalMovement != 0) 
+        {
+            move *= (speed - 1);
+        }
+        else
+        {
+            move *= speed;
+        }
 
         controller.Move(move * Time.deltaTime);
     }
