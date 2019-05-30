@@ -14,7 +14,7 @@ public class PlayerMove : MonoBehaviour
     private Vector3 moveVelocity;
     private Vector3 savedVelocity;
     private bool isLerp;
-
+    
     float lerp(float v0, float v1, float t)
     {
         return (float) (1.0 - t) * v0 + t * v1;
@@ -38,9 +38,11 @@ public class PlayerMove : MonoBehaviour
             }
             else
             {
-                moveVelocity.x = lerp(moveVelocity.x, savedVelocity.x, DashTimer);
-                moveVelocity.y = lerp(moveVelocity.y, savedVelocity.y, DashTimer);
-                DashTimer += Time.deltaTime;
+                float move = DashTimer / dashLerpSpeed;
+                move = 1.5f * Mathf.Sin(move * Mathf.PI * 4);
+                // moveVelocity = Vector3.Lerp(moveVelocity, savedVelocity, move);
+                moveVelocity.x = lerp(moveVelocity.x, savedVelocity.x, move);
+                moveVelocity.y = lerp(moveVelocity.y, savedVelocity.y, move);
             }
         }
         else
@@ -57,6 +59,7 @@ public class PlayerMove : MonoBehaviour
             //moveVelocity = moveVelocity * dashMoveSpeed;
         }
         coolDownTimer -= Time.deltaTime;
+        DashTimer += Time.deltaTime;
 
     }
 
