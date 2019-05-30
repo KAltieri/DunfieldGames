@@ -974,8 +974,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  dashSpeedX: 20
+  dashMoveSpeed: 1.5
   dashCoolDown: 1
+  dashLerpSpeed: 0.5
 --- !u!50 &1018238687
 Rigidbody2D:
   serializedVersion: 4

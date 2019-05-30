@@ -5,11 +5,20 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public float speed;
-    public float dashSpeedX;
+    public float dashMoveSpeed;
     public float dashCoolDown;
+    public float dashLerpSpeed;
     private float coolDownTimer;
+    private float DashTimer;
     private Rigidbody2D rb;
-    private Vector2 moveVelocity;
+    private Vector3 moveVelocity;
+    private Vector3 savedVelocity;
+    private bool isLerp;
+
+    float lerp(float v0, float v1, float t)
+    {
+        return (float) (1.0 - t) * v0 + t * v1;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -20,27 +29,39 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveVelocity = moveInput.normalized * speed;
-
-        if (coolDownTimer > 0)
+        if (isLerp)
         {
-            coolDownTimer -= Time.deltaTime;
+            if (DashTimer >= dashLerpSpeed)
+            {
+                isLerp = false;
+                DashTimer = 0.0f;
+            }
+            else
+            {
+                moveVelocity.x = lerp(moveVelocity.x, savedVelocity.x, DashTimer);
+                moveVelocity.y = lerp(moveVelocity.y, savedVelocity.y, DashTimer);
+                DashTimer += Time.deltaTime;
+            }
         }
-        if (coolDownTimer < 0)
+        else
         {
-            coolDownTimer = 0;
+            Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 1.0f);
+            moveVelocity = moveInput.normalized * speed;
         }
-        if (Input.GetButton("Jump") && coolDownTimer == 0) //Jump = Space Bar
+        if (Input.GetButton("Jump") && coolDownTimer <= 0) //Jump = Space Bar
         {
             coolDownTimer = dashCoolDown;
-            moveVelocity = moveVelocity * dashSpeedX;
+            savedVelocity = moveVelocity * dashMoveSpeed;
+            isLerp = true;
+            DashTimer = 0.0f;
+            //moveVelocity = moveVelocity * dashMoveSpeed;
         }
+        coolDownTimer -= Time.deltaTime;
 
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);         
+        rb.MovePosition((Vector3)rb.position + moveVelocity * Time.fixedDeltaTime);         
     }
 }
